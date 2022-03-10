@@ -15,4 +15,35 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/b_Home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/ed_layout_bg"
+        android:text="Home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/b_Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/ed_layout_bg"
+        android:text="Search"
+        app:layout_constraintBottom_toBottomOf="@+id/b_Home"
+        app:layout_constraintStart_toEndOf="@+id/b_Home" />
+
+    <Button
+        android:id="@+id/b_Person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:background="@drawable/ed_layout_bg"
+        android:text="Person"
+        app:layout_constraintBottom_toBottomOf="@+id/b_Search"
+        app:layout_constraintStart_toEndOf="@+id/b_Search" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
