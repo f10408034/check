@@ -2,6 +2,7 @@ package com.vangood.chat
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -34,30 +35,35 @@ class LoginActivity : AppCompatActivity() {
         val pref = getSharedPreferences("check", Context.MODE_PRIVATE)
         val checked = pref.getBoolean("rem_account", false)
         binding.cbLoginRemember.isChecked = checked
-        binding.cbLoginRemember.setOnCheckedChangeListener { compoundButton, checked ->
-            remember = checked
-            pref.edit().putBoolean("rem_account", remember).apply()
-            if (!checked) {
-                pref.edit().putString("account", "").apply()
-            }
-        }
+
+        cbFuntion(pref)
+
         val prefAccount = pref.getString("account","")
-        if (prefAccount != "")
+        if (checked)
             binding.edLoginAccount.setText(prefAccount)
 
+        bLoginFunction(pref)
+
+        binding.bLoginSignup.setOnClickListener {
+            SignUpResultLuncher.launch(Intent(this, SignUpActivity::class.java))
+        }
+    }
+
+    private fun bLoginFunction(pref: SharedPreferences) {
         binding.bLoginLogin.setOnClickListener {
             val account = binding.edLoginAccount.text.toString()
             val password = binding.edLoginPassword.text.toString()
-            if (account == "jack" && password == "1234"){
+            if (account == pref.getString("account","") && password == pref.getString("password","")) {
                 Log.d(TAG, "Login success")
+                val nickname = pref.getString("nickname","")
                 if (remember) {
                     pref.edit()
                         .putString("account", account)
                         .apply()
                 }
                 MainResultLuncher.launch(Intent(this, MainActivity::class.java))
-                Toast.makeText(this, "welcome $account", Toast.LENGTH_LONG).show()
-            }else {
+                Toast.makeText(this, "welcome $nickname", Toast.LENGTH_LONG).show()
+            } else {
                 AlertDialog.Builder(this)
                     .setTitle("Login")
                     .setMessage("Login Failed")
@@ -65,9 +71,15 @@ class LoginActivity : AppCompatActivity() {
                     .show()
             }
         }
-        binding.bLoginSignup.setOnClickListener {
+    }
 
-            SignUpResultLuncher.launch(Intent(this, SignUpActivity::class.java))
+    private fun cbFuntion(pref: SharedPreferences) {
+        binding.cbLoginRemember.setOnCheckedChangeListener { compoundButton, checked ->
+            remember = checked
+            pref.edit().putBoolean("rem_account", remember).apply()
+//            if (!checked) {
+//                pref.edit().putString("account", "").apply()
+//            }
         }
     }
 
