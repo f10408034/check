@@ -15,12 +15,21 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()){ result ->
         Log.d(TAG, "back from LoginActivity with data? ")
     }
+
+    val roomResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){ result ->
+        Log.d(TAG, "go to RoomActivity")
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //botton funtion
         setupFunctions()
+
+        binding.imImage.setOnClickListener {
+            roomResultLauncher.launch(Intent(this, RoomActivity::class.java))
+        }
     }
 
     private fun setupFunctions() {

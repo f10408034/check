@@ -53,16 +53,25 @@ class LoginActivity : AppCompatActivity() {
         binding.bLoginLogin.setOnClickListener {
             val account = binding.edLoginAccount.text.toString()
             val password = binding.edLoginPassword.text.toString()
-            if (account == pref.getString("account","") && password == pref.getString("password","")) {
-                Log.d(TAG, "Login success")
-                val nickname = pref.getString("nickname","")
-                if (remember) {
-                    pref.edit()
-                        .putString("account", account)
-                        .apply()
+            if (account == pref.getString("account","")) {
+                if (password == pref.getString("password", "")) {
+
+                    Log.d(TAG, "Login success")
+                    val nickname = pref.getString("nickname", "")
+                    if (remember) {
+                        pref.edit()
+                            .putString("account", account)
+                            .apply()
+                    }
+                    MainResultLuncher.launch(Intent(this, MainActivity::class.java))
+                    Toast.makeText(this, "welcome $nickname", Toast.LENGTH_LONG).show()
+                } else {
+                    AlertDialog.Builder(this)
+                        .setTitle("Login")
+                        .setMessage("wrong password")
+                        .setPositiveButton("ok", null)
+                        .show()
                 }
-                MainResultLuncher.launch(Intent(this, MainActivity::class.java))
-                Toast.makeText(this, "welcome $nickname", Toast.LENGTH_LONG).show()
             } else {
                 AlertDialog.Builder(this)
                     .setTitle("Login")
