@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -18,6 +19,10 @@ class LoginActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()){ result->
             Log.d(TAG, "back from LoginActivity")
         }
+    val SignUpResultLuncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){ result->
+        Log.d(TAG, "go to SignupActivity")
+    }
 
 //    val pref = requireContext().getSharedPreferences("atm", Context.MODE_PRIVATE)
 
@@ -28,8 +33,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         val pref = getSharedPreferences("check", Context.MODE_PRIVATE)
         val checked = pref.getBoolean("rem_account", false)
-        binding.cbRemember.isChecked = checked
-        binding.cbRemember.setOnCheckedChangeListener { compoundButton, checked ->
+        binding.cbLoginRemember.isChecked = checked
+        binding.cbLoginRemember.setOnCheckedChangeListener { compoundButton, checked ->
             remember = checked
             pref.edit().putBoolean("rem_account", remember).apply()
             if (!checked) {
@@ -38,11 +43,11 @@ class LoginActivity : AppCompatActivity() {
         }
         val prefAccount = pref.getString("account","")
         if (prefAccount != "")
-            binding.edAccount.setText(prefAccount)
+            binding.edLoginAccount.setText(prefAccount)
 
-        binding.bSignup.setOnClickListener {
-            val account = binding.edAccount.text.toString()
-            val password = binding.edPassword.text.toString()
+        binding.bLoginLogin.setOnClickListener {
+            val account = binding.edLoginAccount.text.toString()
+            val password = binding.edLoginPassword.text.toString()
             if (account == "jack" && password == "1234"){
                 Log.d(TAG, "Login success")
                 if (remember) {
@@ -51,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
                         .apply()
                 }
                 MainResultLuncher.launch(Intent(this, MainActivity::class.java))
+                Toast.makeText(this, "welcome $account", Toast.LENGTH_LONG).show()
             }else {
                 AlertDialog.Builder(this)
                     .setTitle("Login")
@@ -58,6 +64,10 @@ class LoginActivity : AppCompatActivity() {
                     .setPositiveButton("ok", null)
                     .show()
             }
+        }
+        binding.bLoginSignup.setOnClickListener {
+
+            SignUpResultLuncher.launch(Intent(this, SignUpActivity::class.java))
         }
     }
 

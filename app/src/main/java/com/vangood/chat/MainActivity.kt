@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupFunctions() {
         binding.bPerson.setOnClickListener {
             personResultLauncher.launch(Intent(this, LoginActivity::class.java))
+
         }
         binding.bSearch.setOnClickListener {
 

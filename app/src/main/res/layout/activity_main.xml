@@ -19,31 +19,37 @@
         android:id="@+id/b_Home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="30dp"
         android:background="@drawable/ed_layout_bg"
         android:text="Home"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/b_Search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
         android:background="@drawable/ed_layout_bg"
         android:text="Search"
         app:layout_constraintBottom_toBottomOf="@+id/b_Home"
-        app:layout_constraintStart_toEndOf="@+id/b_Home" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/b_Person"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/ed_layout_bg"
         android:text="Person"
         app:layout_constraintBottom_toBottomOf="@+id/b_Search"
-        app:layout_constraintStart_toEndOf="@+id/b_Search" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
