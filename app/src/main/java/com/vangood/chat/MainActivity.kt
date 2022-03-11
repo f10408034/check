@@ -10,6 +10,7 @@ import com.vangood.chat.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.java.simpleName
     lateinit var binding: ActivityMainBinding
+    //
     val personResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){ result ->
         Log.d(TAG, "back from LoginActivity with data? ")
@@ -24,8 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupFunctions() {
         binding.bPerson.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            personResultLauncher.launch(Intent(this, LoginActivity::class.java))
         }
         binding.bSearch.setOnClickListener {
 
